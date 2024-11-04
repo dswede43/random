@@ -58,15 +58,12 @@ def popular_artists(json_data):
     
     return artists
 
-def visualize_stream_counts(artists, stream_cutoff = 25, stream_range = 25):
+def visualize_stream_counts(artists, stream_cutoff = 25, stream_range = 50):
     """
     Visualize the number of artists across stream count cutoffs.
     """
     #define the range of stream count cutoffs
-    if stream_range > stream_cutoff:
-        r1, r2 = [0, stream_cutoff + stream_range]
-    else:
-        r1, r2 = [stream_cutoff - stream_range, stream_cutoff + stream_range] 
+    r1, r2 = [0, stream_cutoff + stream_range]
     stream_cutoffs = [i for i in range(r1, r2 + 1)]
     
     #obtain the number of artists for each stream cutoff
@@ -90,7 +87,7 @@ artists = popular_artists(spot_streams)
 
 #visualize the results
 print("Creating visualization...")
-stream_cutoffs, artists_lens = visualize_stream_counts(artists)
+stream_cutoffs, artists_lens = visualize_stream_counts(artists, stream_cutoff = STREAM_CUTOFF)
 artist_len = len(artists[artists >= STREAM_CUTOFF])
 plt.plot(stream_cutoffs, artists_lens)
 plt.axvline(x = STREAM_CUTOFF, color = 'r', linestyle = '--', label = f"chosen stream count cutoff = {STREAM_CUTOFF}")
