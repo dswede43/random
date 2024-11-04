@@ -21,7 +21,7 @@ Now, with full control over your library, you can enjoy your music free from sub
 ## Installation
 ### Docker
 A docker image of this application can be pulled from my Docker Hub
-[repository](https://hub.docker.com/repository/docker/dswede43/spotifydown/general).
+[repository](https://hub.docker.com/repository/docker/dswede43/fspotify/general).
 
 #### docker run
 Obtain your own ***SPOTIFY_CLIENT_ID*** and ***SPOTIFY_CLIENT_SECRET*** through
