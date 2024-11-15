@@ -94,6 +94,7 @@ def convert_mp3_spotifydown(song_link, save_dir, file_name):
         page.goto("https://spotifydown.com")
         
         #navigate to download page
+        page.wait_for_load_state("networkidle")
         page.get_by_placeholder("https://open.spotify.com/..../").click()
         page.get_by_placeholder("https://open.spotify.com/..../").fill(song_link)
         page.get_by_role("button", name = "Download").click()
@@ -147,7 +148,7 @@ def convert_mp3_spowload(song_link, save_dir, file_name):
     #obtain the songs track id
     match = re.search(r'(?<=track/)(.*?)(?=\?si=)', song_link)
     if not match:
-        return False
+        match = re.search(r'(?<=track/).*', song_link)
     track_id = match.group(0)
     
     with sync_playwright() as p:
@@ -174,7 +175,7 @@ def convert_mp3_spowload(song_link, save_dir, file_name):
             try:
                 #try to click the "Download MP3" button
                 with page.expect_download() as download_info:
-                    page.get_by_role("link", name="Download", exact=True).click()
+                    page.get_by_role("link", name = "Download", exact = True).click()
                 download = download_info.value
                 
                 #define the path to save the file
@@ -204,9 +205,9 @@ def download_song(song_link, save_dir, file_name):
     """
     Download the song given its Spotify URL.
     """
-    if convert_mp3_spotifydown(song_link, save_dir, file_name):
-        return True
-    elif convert_mp3_spowload(song_link, save_dir, file_name):
+    #if convert_mp3_spotifydown(song_link, save_dir, file_name):
+        #return True
+    if convert_mp3_spowload(song_link, save_dir, file_name):
         return True
     else:
         return False
