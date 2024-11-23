@@ -33,5 +33,6 @@ docker run -d --name fspotify \
     -e SPOTIFY_CLIENT_ID='YOUR_SPOTIFY_CLIENT_ID' \
     -e SPOTIFY_CLIENT_SECRET='YOUR_SPOTIFY_CLIENT_SECRET' \
     -v "$(pwd)":/app/songs \
+    -v "$(pwd)/security":/app/security \
     dswede43/fspotify:latest
 ```

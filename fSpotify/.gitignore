@@ -1,0 +1,5 @@
+.cache
+__pycache__
+docker-run.txt
+.dockerignore
+TODO.txt
