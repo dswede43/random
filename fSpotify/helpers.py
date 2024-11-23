@@ -142,9 +142,6 @@ def convert_mp3_spowload(song_link, save_dir, file_name):
     """
     Convert a song to MP3 using Spowload (https://spowload.com).
     """
-    #create directory for download
-    os.makedirs(save_dir, exist_ok = True)
-    
     #obtain the songs track id
     match = re.search(r'(?<=track/)(.*?)(?=\?si=)', song_link)
     if not match:
@@ -161,14 +158,18 @@ def convert_mp3_spowload(song_link, save_dir, file_name):
         page.goto("https://spowload.com")
         
         #navigate to download page
-        page.get_by_placeholder("Paste your link here...").click()
-        page.get_by_placeholder("Paste your link here...").fill(song_link)
-        page.get_by_role("button", name = "Start").click()
-        page.goto(f"https://spowload.com/spotify/track-{track_id}")
-        page.get_by_role("button", name="Convert", exact=True).click()
+        try:
+            page.get_by_placeholder("Paste your link here...").click()
+            page.get_by_placeholder("Paste your link here...").fill(song_link)
+            page.get_by_role("button", name = "Start").click()
+            page.goto(f"https://spowload.com/spotify/track-{track_id}")
+            page.get_by_role("button", name="Convert", exact=True).click()
+        except Exception as e:
+            browser.close()
+            return false
         
         #attempt to click the "Download" button until successful
-        max_retries = 10  #set a maximum retry count to avoid infinite loop
+        max_retries = 5  #set a maximum retry count to avoid infinite loop
         retries = 0
         
         while retries < max_retries:
@@ -177,6 +178,9 @@ def convert_mp3_spowload(song_link, save_dir, file_name):
                 with page.expect_download() as download_info:
                     page.get_by_role("link", name = "Download", exact = True).click()
                 download = download_info.value
+                
+                #create directory for download
+                os.makedirs(save_dir, exist_ok = True)
                 
                 #define the path to save the file
                 download_path = os.path.join(save_dir, file_name)
@@ -188,8 +192,8 @@ def convert_mp3_spowload(song_link, save_dir, file_name):
                 break
             
             except Exception as e:
-                #eait 3 seconds before trying again
-                page.wait_for_timeout(1000)
+                #wait before trying again
+                page.wait_for_timeout(500)
                 retries += 1
         
         else:

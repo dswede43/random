@@ -1,4 +1,3 @@
 streamlit
 Image
 spotipy
-pytest-playwright
