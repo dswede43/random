@@ -11,13 +11,10 @@ import helpers
 import pages
 
 #define global variables
-#SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID") #spotify client id
-#SPOTIFY_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET") #spotify client secret key
-#SAVE_PATH = "/app/songs" #path to saved songs
+SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID") #spotify client id
+SPOTIFY_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET") #spotify client secret key
+SAVE_PATH = "/app/songs" #path to saved songs
 
-SPOTIFY_CLIENT_ID = "287c0f624dae42078fb19c2a459d1206"
-SPOTIFY_CLIENT_SECRET = "66166c69499b4c9caf05453db28ee1b6"
-SAVE_PATH = "./songs"
 
 #Web page UI
 #---
