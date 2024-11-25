@@ -277,8 +277,6 @@ class SpotifyDownloader:
             return True
         if self.spowload():
             return True
-        if self.spowloadnet():
-            return True
         else:
             return False
 
