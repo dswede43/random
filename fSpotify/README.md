@@ -14,7 +14,7 @@ This user-friendly web application allows you to search for songs by name and re
 Simply click “Download,” and the song will be saved directly to the directory you set up during Docker installation.
 
 fSpotify works by searching Spotify’s catalog through its API using Python’s `spotipy` module to retrieve the
-song’s URL. This URL is then processed by [Spotify Down](https://spotifydown.com) or [Spowload](https://spowload.com),
+song’s URL. This URL is then processed by [Spowload](https://spowload.com) or [Spotify MP3](https://spotifymp3.com),
 where the song is downloaded in headless mode via the `playwright` module. Within minutes, an .mp3 file appears in your designated directory, ready to stream through self-hosted music players like [Navidrome](https://www.navidrome.org).
 Now, with full control over your library, you can enjoy your music free from subscriptions and price hikes.
 

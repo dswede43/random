@@ -31,14 +31,17 @@ def main():
     #add text to explain app
     st.write("Convert any Spotify song to MP3 and save to your local machine!")
     
+    #intialize password manager
+    password_manager = helpers.PasswordManager()
+    
     #initialize session state variables
     if "page" not in st.session_state:
-        st.session_state.page = "Setup Password" if not helpers.load_password() else "Login"
+        st.session_state.page = "Setup Password" if not password_manager.load_password() else "Login"
     if "authenticated" not in st.session_state:
         st.session_state.authenticated = False
     
     #display the appropriate page based on state
-    if st.session_state.page == "Setup Password" and not helpers.load_password():
+    if st.session_state.page == "Setup Password" and not password_manager.load_password():
         pages.password_setup_page()
     elif st.session_state.page == "Login" and not st.session_state.authenticated:
         pages.login_page()

@@ -12,6 +12,9 @@ import helpers
 
 #Pages
 #---
+#initialize password manager
+password_manager = helpers.PasswordManager()
+
 def password_setup_page():
     """
     Password setup page.
@@ -22,7 +25,7 @@ def password_setup_page():
     
     if st.button("Set Password") or password and confirm_password:
         if password == confirm_password:
-            helpers.save_password(password)      
+            password_manager.save_password(password)      
             st.success("Password set successfully! Logging in...")
             time.sleep(1)
             st.session_state.page = "Login"
@@ -39,7 +42,7 @@ def login_page():
     password_input = st.text_input("Enter password", type = "password")
     
     if st.button("Login") or password_input:
-        if helpers.authenticate(password_input):
+        if password_manager.authenticate(password_input):
             st.session_state.authenticated = True
             st.success("Login successful!")
             time.sleep(1)
@@ -76,8 +79,11 @@ def main_app_page(spotify_client_id, spotify_client_secret, save_path):
                     save_dir = f"{save_path}/{artist}"
                     file_name = f"{song_name}.mp3"
                     
+                    #intialize the downloader
+                    downloader = helpers.SpotifyDownloader(spotify_link, save_dir, file_name)
+                    
                     #download the song
-                    if helpers.download_song(spotify_link, save_dir, file_name):
+                    if downloader.download_song():
                         st.success("Download successful!")
                     else:
                         st.error("Download Failed! Please try again.")
